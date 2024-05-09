@@ -2,7 +2,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { FC } from "react";
 
 type ErrorTextProps = {
-    text: string;
+    text: any;
 };
 
 const ErrorText: FC<ErrorTextProps> = ({ text }) => {

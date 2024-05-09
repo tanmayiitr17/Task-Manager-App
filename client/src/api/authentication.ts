@@ -1,14 +1,12 @@
-import axios from "axios";
+import { userRequest } from "../requestMethods";
 
-const BASE_URL = "https://ecommerce-server-black.vercel.app";
-
-export const login = async (user: any) => {
-    const res = await axios.post(`${BASE_URL}/auth/login`, user);
+export const login = async (data: any) => {
+    const res = await userRequest.post(`/auth/login`, data);
     localStorage.setItem("token", res.data.accessToken);
     return res.data;
 };
 
-export const signup = async (user: any) => {
-    const res = await axios.post(`${BASE_URL}/auth/login`, user);
+export const signup = async (data: any) => {
+    const res = await userRequest.post(`/auth/register`, data);
     return res.data;
 };

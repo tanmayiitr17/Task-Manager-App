@@ -9,6 +9,8 @@ import { login } from '../api/authentication';
 import { showError, showMessage } from '../utils/Notify';
 import CheckBox from '../components/CheckBox';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../redux/userSlice";
 
 type LoginData = {
     username: string;
@@ -30,6 +32,7 @@ const schema = yup
 const Login = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const {
         control,
@@ -44,8 +47,10 @@ const Login = () => {
         try {
             const res = await login(data);
             if (res) {
+                dispatch(loginSuccess(res));
                 setLoading(false);
                 showMessage("Logged in Successfully!")
+                navigate("/");
             }
         } catch (err) {
             showError("Invaild Credentials.Try Again!");
@@ -65,9 +70,9 @@ const Login = () => {
                     </h1>
                     <div className="flex w-[100%] gap-[7%] max-sm:flex-col max-sm:gap-[15%]">
                         <div className="w-[100%]">
-                            {/* <img src="https://nom.mathmaterate.com/static/media/loginillustration.761bdb873abee02c0aa0.png" alt="pic"
-                                    className="w-[40vw] h-[50vh] max-sm:w-full max-sm:h-full"
-                                /> */}
+                            <img src="https://timeclock365.com/wp-content/uploads/2020/08/TASKS-TRACKING.jpg" alt="pic"
+                                className="rounded-[10px] mt-[3vh] w-[35vw] h-[45vh] max-sm:w-full max-sm:h-[25vh]"
+                            />
                         </div>
                         <div className="flex flex-col justify-center w-[100%]">
                             <h2 className="font-[500] text-[25px] border-b-[3px] border-b-solid border-b-[rgb(9,132,253)] w-[13%]  max-sm:w-[16%] max-sm:text-[20px]">Login</h2>

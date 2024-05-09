@@ -4,6 +4,9 @@ import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import { useState } from "react";
 import Popup from "./Popup";
 import AddTask from "./AddTask";
+import { deleteTask } from "../api/task";
+import { showError, showMessage } from "../utils/Notify";
+import { formatDate } from "../utils/DateFormat";
 
 interface TaskProps {
     task?: any;
@@ -18,35 +21,42 @@ const TaskList = ({ task }: TaskProps) => {
 
     const handleDelete = async () => {
         try {
-
+            const res = await deleteTask(task?._id);
+            if (res) {
+                showMessage(`Task-${task?.title} deleted successfully!`)
+            }
         } catch (err) {
-
+            showError("Something went wrong.Try Again!");
+        } finally {
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         }
     }
-
     return (
-        <div className="flex flex-row items-center gap-[15px] mx-[10%] my-[2%]">
+        <div className="flex flex-row items-center gap-[15px] mx-[10%] mb-[2%] max-sm:mx-[0%] max-sm:gap-[0px] max-sm:mb-[7%]">
             {add &&
                 <Popup>
-                    <AddTask setAdd={setAdd} text="Edit Task" buttonText="edit a task" />
+                    <AddTask setAdd={setAdd} text="Edit Task" buttonText="edit a task" task={task} />
                 </Popup>
             }
-            <div><CheckBox /></div>
-            <div className="font-[400] text-[#808080] text-[14px]">9 May 2024</div>
-            <div className={`flex flex-col border-solid rounded-[10px] w-[70%] pl-[20px] py-[5px] font-[400] shadow-lg relative ${task?.status == "done" ? "bg-[rgb(9,132,253)] text - [#fff]" : ""}`}>
+            <div><CheckBox task={task} /></div>
+            <div className="font-[400] text-[#808080] text-[14px] max-sm:text-[10px] max-sm:mr-[7px]">{formatDate(task?.dueDate)}</div>
+            <div className={`flex flex-col border-solid rounded-[10px] w-[70%] pl-[20px] py-[5px] font-[400] shadow-lg relative ${task?.status == true ? "bg-[rgb(9,132,253)] text-[#fff]" : ""}`}>
                 <div className="flex gap-[20%]">
-                    <span>Reading Book</span>
+                    <span className="pl-[10%] max-sm:pl-[7%]">{task?.title}</span>
                     <span
-                        className={`font-[400] text-[#808080] text-[12px]
-                        ${task?.priority == "high" && "text-[#013220]"}
+                        className={`font-[400] text-[12px] absolute top-[20%] right-[35%] max-sm:right-[17%]
+                        ${task?.priority == "high" && "text-[#00FF00]"}
                         ${task?.priority == "low" && "text-[#FF0000]"}
                         ${task?.priority == "medium" && "text-[rgb(255,214,0)]"}
+                        ${task?.status == true ? "text-[#fff]" : ""}
                     `}>
-                        Priority-{task?.priority}
+                        {task?.priority}
                     </span>
                 </div>
-                <span className="text-[10px]">8:00 - 11:00 am</span>
-                <EditNoteRoundedIcon className="absolute top-[20%] left-[24%] !h-[20px] !w-[20px] cursor-pointer rounded-[50%]" onClick={handleEdit} />
+                <span className="text-[10px] pl-[10%] max-sm:pl-[7%]">{task?.startTime} - {task?.endTime}</span>
+                <EditNoteRoundedIcon className="absolute top-[20%] left-[3%] !h-[20px] !w-[20px] cursor-pointer rounded-[50%]" onClick={handleEdit} />
                 <ClearRoundedIcon className="absolute top-[-20%] right-[-1.5%] text-[#fff] !h-[17px] !w-[17px] cursor-pointer text-[#fff] rounded-[50%] !bg-[#FF0000]" onClick={handleDelete} />
             </div>
         </div >
