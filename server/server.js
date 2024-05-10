@@ -18,17 +18,6 @@ mongoose
         console.log(err);
     });
 app.use(cors());
-// app.use(cors({
-//   origin: [
-//     // "http://localhost:5173",
-//     // "http://localhost:5175",
-//     // "https://ecommerce-mern-admin.vercel.app",
-//     "https://ecommerce-mern-client-17.vercel.app"
-//   ],
-//   methods: ["GET", "PUT", "POST", "DELETE"],
-//   allowedHeaders: ["Content-Type", "Authorization"] // Add headers needed for your requests
-// }));
-
 
 app.use(express.json());
 app.get('/', (req, res) => {

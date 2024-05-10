@@ -1,7 +1,6 @@
 import express from "express";
 import {
     verifyToken,
-    verifyTokenAndAuthorization,
 } from "../middleware/verifyToken.js";
 import Task from "../models/Task.js";
 
@@ -46,7 +45,7 @@ router.delete("/:id", verifyToken, async (req, res) => {
 
 //GET TASK
 
-router.get("/find/:id", async (req, res) => {
+router.get("/find/:id", verifyToken, async (req, res) => {
     try {
         const task = await Task.findById(req.params.id);
         res.status(200).json(task);
@@ -56,6 +55,7 @@ router.get("/find/:id", async (req, res) => {
 });
 
 //GET ALL TASKS
+
 router.get("/:id", verifyToken, async (req, res) => {
     const userId = req.params.id;
     try {
