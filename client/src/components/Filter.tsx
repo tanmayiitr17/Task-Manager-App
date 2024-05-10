@@ -116,7 +116,7 @@ const Filter = ({ setFilter, setFilterTask }: FilterProps) => {
                     </div>
                 </div>
                 <CustomButton loading={loading} text="Filter task" className="!mt-[2%]" />
-                <ClearRoundedIcon className="absolute top-[-36.5%] right-[-8.5%] text-[#fff] !h-[20px] !w-[20px] cursor-pointer text-[#fff] rounded-[50%] !bg-[#FF0000]" onClick={() => setFilter((filter: any) => !filter)} />
+                <ClearRoundedIcon className="absolute top-[-39.5%] right-[-8.5%] text-[#fff] !h-[20px] !w-[20px] cursor-pointer text-[#fff] rounded-[50%] !bg-[#FF0000]" onClick={() => setFilter((filter: any) => !filter)} />
             </form>
         </div>
     );
