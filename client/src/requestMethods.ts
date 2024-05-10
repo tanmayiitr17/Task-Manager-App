@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// const BASE_URL = "http://localhost:5000/";
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://task-manager-server-taupe.vercel.app/";
 
 const TOKEN = localStorage.getItem("token");
 // Create axios instance for public requests (without authentication)
