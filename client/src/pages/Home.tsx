@@ -1,6 +1,7 @@
 import CustomSearch from "../components/CustomSearch";
 import SortRoundedIcon from '@mui/icons-material/SortRounded';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import { CircularProgress } from "@mui/material";
 import { formatDate } from "../utils/DateFormat";
 import TaskList from "../components/TaskList";
 import { useEffect, useState } from "react";
@@ -69,7 +70,8 @@ const Home = () => {
         <div className="flex flex-col mx-[1%]">
             {loading &&
                 <Popup>
-                    <h5>Hold on, loading your tasks!</h5>
+                    <CircularProgress className="!w-[30px] !h-[30px] !mb-[12px] !text-[rgb(255,214,0)]" />
+                    <h5>Hold on, loading your tasks...</h5>
                 </Popup>
             }
             {add &&

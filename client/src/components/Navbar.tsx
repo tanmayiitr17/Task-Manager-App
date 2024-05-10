@@ -20,6 +20,7 @@ const Navbar = () => {
         dispatch(logoutTask());
         dispatch(logout());
         navigate("/login");
+        setOpen(open => !open);
     }
 
     return (
@@ -28,24 +29,25 @@ const Navbar = () => {
                 <span className="text-[rgb(255,214,0)]">Task</span>-मैनेजर
             </div>
             <div className="flex gap-[17px] text-[17px] text-[#fff] font-[500] max-sm:hidden">
-                <span className="cursor-pointer hover:text-yellow-400" onClick={() => navigate("/")}>Home</span>
-                <span className="cursor-pointer hover:text-yellow-400" onClick={() => navigate("/about-us")}>About Us</span>
+                <span className="cursor-pointer hover:text-yellow-400" onClick={() => { navigate("/"); setOpen(open => !open) }}>Home</span>
+                <span className="cursor-pointer hover:text-yellow-400" onClick={() => { navigate("/about-us"); setOpen(open => !open) }}>About Us</span>
                 {userId && <span className="cursor-pointer hover:text-yellow-400" onClick={handleLogout}>Logout</span>}
-                {!userId && <span className="cursor-pointer hover:text-yellow-400" onClick={() => navigate("/login")}>Login</span>}
-            </div>
+                {!userId && <span className="cursor-pointer hover:text-yellow-400" onClick={() => { navigate("/login"); setOpen(open => !open) }}>Login</span>}
+            </div >
             <DensityMediumIcon className="!hidden !text-[#fff] !cursor-pointer max-sm:!block" onClick={handleHamberger} />
-            {open &&
+            {
+                open &&
                 <div className='bg-[rgb(9,132,253)] w-full fixed top-0 left-0 right-0 z-[100]'>
                     <CloseRoundedIcon className='!text-yellow-400 !cursor-pointer fixed top-[-2] right-1 !w-[9%] !h-[7%]' onClick={handleHamberger} />
                     <div className=" flex items-center flex-col gap-[17px] text-[17px] py-[7vh] text-[#fff] font-[500]">
-                        <span className="cursor-pointer hover:text-yellow-400" onClick={() => navigate("/")}>Home</span>
-                        <span className="cursor-pointer hover:text-yellow-400" onClick={() => navigate("/about-us")}>About Us</span>
+                        <span className="cursor-pointer hover:text-yellow-400" onClick={() => { navigate("/"); setOpen(open => !open) }}>Home</span>
+                        <span className="cursor-pointer hover:text-yellow-400" onClick={() => { navigate("/about-us"); setOpen(open => !open) }}>About Us</span>
                         {userId && <span className="cursor-pointer hover:text-yellow-400" onClick={handleLogout}>Logout</span>}
-                        {!userId && <span className="cursor-pointer hover:text-yellow-400" onClick={() => navigate("/login")}>Login</span>}
+                        {!userId && <span className="cursor-pointer hover:text-yellow-400" onClick={() => { navigate("/login"); setOpen(open => !open) }}>Login</span>}
                     </div>
                 </div>
             }
-        </div>
+        </div >
     )
 }
 
