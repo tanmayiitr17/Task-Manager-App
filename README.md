@@ -4,12 +4,12 @@ This repository contains the source code for a MERN (MongoDB, Express.js, React.
 
 Clone Repository:
 - To clone this repository, execute the following command in your terminal:
-  git clone <repository_url>
+  `git clone <repository_url>`
 
 Installation:
 - After cloning the repository, navigate to the project directory.
 - Run the following command to install the required dependencies:
-  npm install
+  `npm install`
 
 Starting the Application:
 - Ensure MongoDB is installed and running on your system.
