@@ -50,7 +50,7 @@ const TaskList = ({ task }: TaskProps) => {
                         ${task?.priority == "high" && "text-[#00FF00]"}
                         ${task?.priority == "low" && "text-[#FF0000]"}
                         ${task?.priority == "medium" && "text-[rgb(255,214,0)]"}
-                        ${task?.status == true ? "text-[#fff]" : ""}
+                        ${task?.status == true ? "!text-[#fff]" : ""}
                     `}>
                         {task?.priority}
                     </span>
