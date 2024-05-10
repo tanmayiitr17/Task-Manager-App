@@ -1,38 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// Define the shape of the user state
 interface UserState {
-    currentUser: any;
-    isFetching: boolean;
-    error: boolean;
+    currentUser: any; // Current user information 
 }
 
+// Define the initial state of the user slice
 const initialState: UserState = {
-    currentUser: null,
-    isFetching: false,
-    error: false,
+    currentUser: null, // Initially no user is logged in 
 };
 
+// Create a user slice
 const userSlice = createSlice({
-    name: 'user',
-    initialState,
+    name: 'user', // Name of the slice
+    initialState, // Initial state
     reducers: {
+        // Reducer function for successful login
         loginSuccess: (state, action) => {
-            state.isFetching = false;
+            // Update state with the current user 
             state.currentUser = action.payload;
         },
+        // Reducer function for logout
         logout: (state) => {
-            state.isFetching = false;
-            state.error = false;
+            // Reset state to initial values and remove token from local storage 
             state.currentUser = null;
             localStorage.removeItem("token");
         },
+        // Reducer function for successful registration
         registerSuccess: (state, action) => {
-            state.isFetching = false;
+            // Update state with the current user 
             state.currentUser = action.payload;
         },
     }
 });
 
+// Export actions and reducer from the user slice
 export const {
     loginSuccess,
     logout,

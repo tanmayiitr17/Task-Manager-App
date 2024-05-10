@@ -46,6 +46,7 @@ const schema = yup
     .required();
 
 const AddTask = ({ setAdd, text, task, buttonText }: AddTaskProps) => {
+    // Get the current user's ID from Redux state
     const userId = useSelector((state: any) => state?.user?.currentUser?._id)
     const id = task?._id;
     const [loading, setLoading] = useState(false);
@@ -57,27 +58,35 @@ const AddTask = ({ setAdd, text, task, buttonText }: AddTaskProps) => {
         resolver: yupResolver(schema),
     });
 
+    // Function to handle form submission
     const onSubmit: SubmitHandler<AddTaskData> = async (data) => {
         setLoading(true);
+        // Check if the button text indicates creating a new task
         if (buttonText == "Create a new task") {
             try {
+                // Add the user ID to the data
                 const result = { ...data, userId };
+                // Upload the task
                 const res = await uploadTask(result);
-                if (res) { 
+                if (res) {
                     showMessage("Task created Successfully!")
                 }
             } catch (err) {
                 showError("Something went wrong.Try Again!");
             } finally {
                 setLoading(false);
+                // Toggle the state to close the form
                 setAdd((add: any) => !add)
+                // Reload the window after 2 seconds
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
             }
         } else {
             try {
+                // Add the task ID to the data
                 const result = { ...data, id };
+                // Update the task
                 const res = await updateTask(result);
                 if (res) {
                     showMessage("Task updated Successfully!")
@@ -86,7 +95,9 @@ const AddTask = ({ setAdd, text, task, buttonText }: AddTaskProps) => {
                 showError("Something went wrong.Try Again!");
             } finally {
                 setLoading(false);
+                // Toggle the state to close the form
                 setAdd((add: any) => !add);
+                // Reload the window after 2 seconds
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
@@ -96,9 +107,11 @@ const AddTask = ({ setAdd, text, task, buttonText }: AddTaskProps) => {
 
     return (
         <div className="flex flex-col justify-center w-[100%] px-[5%] my-[5%]">
+            {/* Display the form title */}
             <h2 className="font-[500] text-center text-[25px] border-b-[3px] border-b-solid border-b-[rgb(9,132,253)] w-[40%]  max-sm:w-[30%] max-sm:text-[20px] mx-auto">{text}</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="mt-[15px] relative">
                 <div>
+                    {/* Input field for task title */}
                     <Controller
                         control={control}
                         name="title"
@@ -111,10 +124,12 @@ const AddTask = ({ setAdd, text, task, buttonText }: AddTaskProps) => {
                             />
                         )}
                     />
+                    {/* Display error message for title field */}
                     <ErrorText text={errors?.title?.message || ""} />
                 </div>
                 <div className='flex flex-row justify-between gap-[5%]'>
                     <div>
+                        {/* Input field for due date */}
                         <Controller
                             control={control}
                             name="dueDate"
@@ -127,9 +142,11 @@ const AddTask = ({ setAdd, text, task, buttonText }: AddTaskProps) => {
                                 />
                             )}
                         />
+                        {/* Display error message for due date field */}
                         <ErrorText text={errors?.dueDate?.message || ""} />
                     </div>
                     <div>
+                        {/* Input field for priority level */}
                         <Controller
                             control={control}
                             name="priority"
@@ -142,11 +159,13 @@ const AddTask = ({ setAdd, text, task, buttonText }: AddTaskProps) => {
                                 />
                             )}
                         />
+                        {/* Display error message for priority field */}
                         <ErrorText text={errors?.priority?.message || ""} />
                     </div>
                 </div>
                 <div className='flex flex-row justify-between'>
                     <div>
+                        {/* Input field for start time */}
                         <Controller
                             control={control}
                             name="startTime"
@@ -159,9 +178,11 @@ const AddTask = ({ setAdd, text, task, buttonText }: AddTaskProps) => {
                                 />
                             )}
                         />
+                        {/* Display error message for start time field */}
                         <ErrorText text={errors?.startTime?.message || ""} />
                     </div>
                     <div>
+                        {/* Input field for end time */}
                         <Controller
                             control={control}
                             name="endTime"
@@ -174,10 +195,13 @@ const AddTask = ({ setAdd, text, task, buttonText }: AddTaskProps) => {
                                 />
                             )}
                         />
+                        {/* Display error message for end time field */}
                         <ErrorText text={errors?.endTime?.message || ""} />
                     </div>
                 </div>
+                {/* Submit button */}
                 <CustomButton loading={loading} text={buttonText} className="!mt-[2%]" />
+                {/* Clear button */}
                 <ClearRoundedIcon className="absolute top-[-29%] right-[-9%] text-[#fff] !h-[20px] !w-[20px] cursor-pointer text-[#fff] rounded-[50%] !bg-[#FF0000] max-sm:top-[-26.5%]" onClick={() => setAdd((add: any) => !add)} />
             </form>
         </div>

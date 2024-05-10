@@ -13,8 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../redux/taskSlice";
 import { useNavigate } from "react-router-dom";
 
-
-
 const Home = () => {
     const [loading, setLoading] = useState(false);
     const [searchTask, setSearchTask] = useState<any>();
@@ -29,6 +27,7 @@ const Home = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    // Fetch tasks on component mount
     useEffect(() => {
         setLoading(true);
         const getTasks = async () => {
@@ -38,7 +37,7 @@ const Home = () => {
                     dispatch(addTask(res));
                 }
             } catch (err) {
-
+                // Handle error
             } finally {
                 setLoading(false);
             }
@@ -48,20 +47,20 @@ const Home = () => {
 
     let finalTasks: any;
 
+    // Merge search and filter results, removing duplicates
     if (searchTask && filterTask) {
         finalTasks = searchTask.concat(filterTask);
-        // Filter out duplicate tasks
         finalTasks = finalTasks.filter((task: any, index: any) => finalTasks.indexOf(task) === index);
     } else {
         finalTasks = searchTask || filterTask || tasks;
     }
 
-
-
+    // Toggle add task popup
     const handleAddTask = () => {
         userId ? setAdd(add => !add) : navigate("/login");
     }
 
+    // Toggle filter popup
     const handleFilter = () => {
         userId ? setFilter(filter => !filter) : navigate("/login");
     }
@@ -85,9 +84,11 @@ const Home = () => {
                 </Popup>
             }
             <div className="flex flex-col ml-[15%] my-[20px] max-sm:ml-[5%] ">
+                {/* User Greeting */}
                 <span className="text-[20px] font-[600] leading-1 max-sm:text-[18px]">HELLO {username ? username.toUpperCase() : "XYZ"}</span>
                 <span className="font-[400] text-[#808080] text-[14px] leading-none max-sm:text-[12px]">{formatDate(todayDate)}</span>
             </div>
+            {/* Search and Sort Section */}
             <form className="flex flex-row gap-[2%] w-[70%] justify-center items-center mx-[15%] max-sm:w-[90%] max-sm:mx-[5%] max-sm:gap-[7%]">
                 <CustomSearch placeholder="Find your task" setSearchTask={setSearchTask} />
                 <SortRoundedIcon
@@ -96,6 +97,7 @@ const Home = () => {
                 />
             </form>
             <div className="flex flex-col justify-center mx-[15%] mt-[3%] max-sm:mx-[5%] max-sm:mt-[5%]">
+                {/* My Tasks Section */}
                 <div className="flex justify-between mb-[2%] text-[17px] font-[500] max-sm:text-[15px] max-sm:mb-[7%]">
                     <div >My Tasks <span className="text-[#808080] font-[600] text-[15px]">({quantity})</span></div>
                     <div className="flex justify-center">Add Task
@@ -104,6 +106,7 @@ const Home = () => {
                             onClick={handleAddTask}
                         /></div>
                 </div>
+                {/* Task List */}
                 {finalTasks && finalTasks?.map((task: any, index: any) => (
                     <TaskList task={task} key={index} />
                 ))}
@@ -112,4 +115,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Home;

@@ -10,12 +10,19 @@ function App() {
 
   return (
     <div className="font-sans">
+      {/* Router component to handle routing */}
       <Router>
+        {/* Navbar component */}
         <Navbar />
+        {/* Routes component to define routes */}
         <Routes>
+          {/* Route for login page */}
           <Route path="/login" element={<Login />} />
+          {/* Route for signup page */}
           <Route path="/signup" element={<Signup />} />
+          {/* Route for home page */}
           <Route path="/" element={<Home />} />
+          {/* Route for about page */}
           <Route path="/about-us" element={<About />} />
         </Routes>
       </Router>
