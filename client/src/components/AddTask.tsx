@@ -63,16 +63,14 @@ const AddTask = ({ setAdd, text, task, buttonText }: AddTaskProps) => {
             try {
                 const result = { ...data, userId };
                 const res = await uploadTask(result);
-                if (res) {
-                    setLoading(false);
+                if (res) { 
                     showMessage("Task created Successfully!")
-
                 }
             } catch (err) {
                 showError("Something went wrong.Try Again!");
-
             } finally {
                 setLoading(false);
+                setAdd((add: any) => !add)
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
@@ -86,9 +84,9 @@ const AddTask = ({ setAdd, text, task, buttonText }: AddTaskProps) => {
                 }
             } catch (err) {
                 showError("Something went wrong.Try Again!");
-
             } finally {
                 setLoading(false);
+                setAdd((add: any) => !add);
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);

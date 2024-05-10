@@ -44,7 +44,7 @@ const Signup = () => {
             const res = await signup(data);
             if (res) {
                 setLoading(false);
-                showMessage("Registered in Successfully!")
+                showMessage("User Registered Successfully!")
                 navigate("/login");
             }
         } catch (err) {
