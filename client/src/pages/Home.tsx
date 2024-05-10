@@ -100,7 +100,7 @@ const Home = () => {
                     <div >My Tasks <span className="text-[#808080] font-[600] text-[15px]">({quantity})</span></div>
                     <div className="flex justify-center">Add Task
                         <AddCircleRoundedIcon
-                            className="!mx-[5px] !text-[rgb(9,132,253)] rounded-[50%] cursor-pointer !h-[19px] !w-[19px] mt-[3px] max-sm:!h-[17px] !w-[17px]"
+                            className="!mx-[5px] !text-[rgb(9,132,253)] rounded-[50%] cursor-pointer !h-[22px] !w-[22px] mt-[2px] max-sm:mt-[0px]"
                             onClick={handleAddTask}
                         /></div>
                 </div>
